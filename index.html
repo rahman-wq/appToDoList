@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>To-Do List App</h1>
+        <div class="profile">
+          <p id="profile-name">Nama: John Doe</p>
+          <p id="profile-role">Jabatan: Manager</p>
+        </div>
+        <div class="time">
+          <p id="current-date">Tanggal: 2024-06-11</p>
+        </div>
+      </header>
+
+      <main>
+        <div class="task-input">
+          <textarea id="task-input" placeholder="Tulis tugas..."></textarea>
+          <select id="priority-level">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button id="submit-task">Submit</button>
+        </div>
+
+        <div class="task-lists">
+          <div class="todo-list">
+            <h2>To-Do List</h2>
+            <ul id="todo-list"></ul>
+          </div>
+          <div class="done-list">
+            <h2>Done</h2>
+            <ul id="done-list"></ul>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <button id="delete-all">Delete All</button>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
