@@ -1,48 +1,124 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
+  const profileName = document.getElementById("profile-name");
+  const profileRole = document.getElementById("profile-role");
+  const currentDateElement = document.getElementById("current-date");
   const taskInput = document.getElementById("task-input");
   const priorityLevel = document.getElementById("priority-level");
+  const deadlineDateInput = document.getElementById("deadline-date");
+  const deadlineTimeInput = document.getElementById("deadline-time");
   const submitTask = document.getElementById("submit-task");
   const todoList = document.getElementById("todo-list");
   const doneList = document.getElementById("done-list");
   const deleteAll = document.getElementById("delete-all");
-  const currentDate = document.getElementById("current-date");
 
-  const updateDate = () => {
-    const now = new Date();
-    currentDate.textContent = `Tanggal: ${now.toLocaleDateString()}`;
+  const staffData = {
+    staff1: {
+      name: "Atun",
+      role: "Staff",
+      todos: [],
+      done: [],
+    },
+    staff2: {
+      name: "Awliyan",
+      role: "Staff",
+      todos: [],
+      done: [],
+    },
+    staff3: {
+      name: "Haura",
+      role: "Staff",
+      todos: [],
+      done: [],
+    },
+    manager: {
+      name: "Rahman",
+      role: "Manager",
+      todos: [],
+      done: [],
+    },
   };
 
-  const addTask = () => {
-    const taskText = taskInput.value.trim();
-    const priority = priorityLevel.value;
+  let currentUser = "manager";
 
-    if (taskText === "") return;
+  function formatDate(date) {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = `0${d.getMonth() + 1}`.slice(-2);
+    const day = `0${d.getDate()}`.slice(-2);
+    return `${year}-${month}-${day}`;
+  }
 
-    const li = document.createElement("li");
-    li.innerHTML = `
-          <span>${taskText} - ${priority}</span>
-          <input type="checkbox">
-      `;
-    li.querySelector("input").addEventListener("change", (e) => {
-      if (e.target.checked) {
-        li.classList.add("done");
-        doneList.appendChild(li);
-      } else {
-        li.classList.remove("done");
-        todoList.appendChild(li);
-      }
-    });
-    todoList.appendChild(li);
-    taskInput.value = "";
-  };
+  function formatDateTime(date, time) {
+    return `${date}T${time}:00`;
+  }
 
-  const deleteAllTasks = () => {
+  function renderToDoLists() {
     todoList.innerHTML = "";
     doneList.innerHTML = "";
+
+    const currentDate = new Date();
+
+    staffData[currentUser].todos.forEach((task, index) => {
+      const li = document.createElement("li");
+      const taskDateTime = new Date(task.deadline);
+      const isOverdue = taskDateTime < currentDate;
+      li.innerHTML = `<input type="checkbox" onclick="markAsDone(${index})" /> ${
+        task.text
+      } [${task.priority}] - ${task.deadline.replace("T", " ")} ${
+        isOverdue ? '<span style="color:red;">(Overdue)</span>' : ""
+      }`;
+      todoList.appendChild(li);
+
+      if (isOverdue) {
+        alert(`Task "${task.text}" is overdue!`);
+      }
+    });
+
+    staffData[currentUser].done.forEach((task, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<input type="checkbox" checked disabled /> <s>${
+        task.text
+      } [${task.priority}] - ${task.deadline.replace("T", " ")}</s>`;
+      doneList.appendChild(li);
+    });
+  }
+
+  submitTask.addEventListener("click", function () {
+    const newTask = {
+      text: taskInput.value,
+      priority: priorityLevel.value,
+      deadline: formatDateTime(
+        deadlineDateInput.value,
+        deadlineTimeInput.value
+      ),
+    };
+    staffData[currentUser].todos.push(newTask);
+    taskInput.value = "";
+    deadlineDateInput.value = "";
+    deadlineTimeInput.value = "";
+    renderToDoLists();
+  });
+
+  deleteAll.addEventListener("click", function () {
+    staffData[currentUser].done = [];
+    renderToDoLists();
+  });
+
+  window.showToDoList = function (user) {
+    currentUser = user;
+    profileName.textContent = `Nama: ${staffData[user].name}`;
+    profileRole.textContent = `Jabatan: ${staffData[user].role}`;
+    renderToDoLists();
   };
 
-  submitTask.addEventListener("click", addTask);
-  deleteAll.addEventListener("click", deleteAllTasks);
+  window.markAsDone = function (index) {
+    const task = staffData[currentUser].todos.splice(index, 1)[0];
+    staffData[currentUser].done.push(task);
+    renderToDoLists();
+  };
 
-  updateDate();
+  // Set current date
+  currentDateElement.textContent = `Tanggal: ${formatDate(new Date())}`;
+
+  renderToDoLists();
 });

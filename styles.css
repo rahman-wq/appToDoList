@@ -1,95 +1,169 @@
+/* styles.css */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
 }
 
-.container {
-  max-width: 600px;
-  margin: 0 auto;
+.header {
+  background-color: #4caf50;
+  color: white;
+  padding: 1em;
+  text-align: center;
+}
+
+.main {
   padding: 20px;
 }
 
-header {
-  text-align: center;
+.manager-select {
   margin-bottom: 20px;
 }
 
-.profile,
-.time {
+.manager-select label {
+  display: block;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
-.task-input {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-#task-input {
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
-}
-
-#priority-level {
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.task-lists {
-  display: flex;
-  justify-content: space-between;
-}
-
-.task-lists div {
-  width: 48%;
-}
-
-ul {
+.manager-select ul {
   list-style: none;
   padding: 0;
 }
 
-li {
-  background-color: #fff;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
+#app {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #ccc;
+  min-height: 100vh;
 }
 
-li.done {
-  text-decoration: line-through;
-}
-
-li button {
-  background-color: red;
-  border: none;
-  border-radius: 50%;
-  padding: 5px;
+#sidebar {
+  width: 250px;
+  background: #333;
   color: #fff;
+  flex-shrink: 0;
+}
+
+.sidebar-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-header {
+  padding: 1em;
+  background: #444;
+}
+
+.sidebar-menu {
+  flex-grow: 1;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu ul li {
+  padding: 10px 20px;
+}
+
+.sidebar-menu ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar-menu ul li a:hover {
+  background: #555;
+}
+
+#main {
+  flex-grow: 1;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+header {
+  background: #444;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+}
+
+.profile {
+  margin-bottom: 20px;
+}
+
+.profile p {
+  margin: 5px 0;
+}
+
+.time {
+  margin-bottom: 20px;
+}
+
+.task-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-input textarea {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.task-input select {
+  padding: 10px;
+}
+
+.task-input button {
+  padding: 10px 20px;
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.task-input button:hover {
+  background: #45a049;
+}
+
+.task-lists {
+  display: flex;
+  gap: 20px;
+}
+
+.task-lists .todo-list,
+.task-lists .done-list {
+  flex-grow: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.task-lists ul {
+  list-style: none;
+  padding: 0;
+}
+
+.task-lists ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 footer {
+  padding: 10px;
+  background: #444;
+  color: #fff;
   text-align: center;
-  margin-top: 20px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.sidebar-title {
+  padding: 10px 20px;
+  background: #555;
 }
