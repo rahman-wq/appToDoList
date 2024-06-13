@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
     profileName.textContent = `Nama: ${staffData[user].name}`;
     profileRole.textContent = `Jabatan: ${staffData[user].role}`;
     renderToDoLists();
+    hideSidebar();
   };
 
   window.markAsDone = function (index) {
@@ -130,4 +131,23 @@ document.addEventListener("DOMContentLoaded", function () {
   closeSidebar.addEventListener("click", function () {
     sidebar.classList.remove("show");
   });
+});
+// Function to show sidebar
+function showSidebar() {
+  sidebar.classList.add("show");
+}
+
+// Function to hide sidebar
+function hideSidebar() {
+  sidebar.classList.remove("show");
+}
+
+// Event listener for burger button toggle
+burgerBtn.addEventListener("click", function () {
+  sidebar.classList.toggle("show");
+});
+
+// Event listener for close sidebar button
+closeSidebar.addEventListener("click", function () {
+  hideSidebar();
 });
