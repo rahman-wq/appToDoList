@@ -104,31 +104,30 @@ document.addEventListener("DOMContentLoaded", function () {
     renderToDoLists();
   });
 
-  function showSidebar() {
-    sidebar.classList.add("show");
-  }
-
-  function hideSidebar() {
-    sidebar.classList.remove("show");
-  }
-
-  burgerBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("show");
-  });
-
-  closeSidebar.addEventListener("click", function () {
-    hideSidebar();
-  });
-
   window.showToDoList = function (user) {
     currentUser = user;
     profileName.textContent = `Nama: ${staffData[user].name}`;
     profileRole.textContent = `Jabatan: ${staffData[user].role}`;
     renderToDoLists();
-    hideSidebar(); // Hide sidebar after selecting a staff
   };
 
+  window.markAsDone = function (index) {
+    const task = staffData[currentUser].todos.splice(index, 1)[0];
+    staffData[currentUser].done.push(task);
+    renderToDoLists();
+  };
+
+  // Set current date
   currentDateElement.textContent = `Tanggal: ${formatDate(new Date())}`;
 
-  renderToDoLists(); // Initial rendering
+  renderToDoLists();
+
+  // Burger button toggle
+  burgerBtn.addEventListener("click", function () {
+    sidebar.classList.toggle("show");
+  });
+
+  closeSidebar.addEventListener("click", function () {
+    sidebar.classList.remove("show");
+  });
 });
