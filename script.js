@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const todoList = document.getElementById("todo-list");
   const doneList = document.getElementById("done-list");
   const deleteAll = document.getElementById("delete-all");
+  const burgerBtn = document.getElementById("burger-btn");
+  const closeSidebar = document.getElementById("close-sidebar");
+  const sidebar = document.getElementById("sidebar");
 
   const staffData = {
     staff1: {
@@ -40,8 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentUser = "manager";
 
-  function formatDate(date) {
-    const d = new Date(date);
+  function formatDate(d) {
     const year = d.getFullYear();
     const month = `0${d.getMonth() + 1}`.slice(-2);
     const day = `0${d.getDate()}`.slice(-2);
@@ -62,20 +64,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const li = document.createElement("li");
       const taskDateTime = new Date(task.deadline);
       const isOverdue = taskDateTime < currentDate;
+      li.classList.add(`priority-${task.priority}`);
       li.innerHTML = `<input type="checkbox" onclick="markAsDone(${index})" /> ${
         task.text
       } [${task.priority}] - ${task.deadline.replace("T", " ")} ${
         isOverdue ? '<span style="color:red;">(Overdue)</span>' : ""
       }`;
       todoList.appendChild(li);
-
-      if (isOverdue) {
-        alert(`Task "${task.text}" is overdue!`);
-      }
     });
 
-    staffData[currentUser].done.forEach((task, index) => {
+    staffData[currentUser].done.forEach((task) => {
       const li = document.createElement("li");
+      li.classList.add(`priority-${task.priority}`);
       li.innerHTML = `<input type="checkbox" checked disabled /> <s>${
         task.text
       } [${task.priority}] - ${task.deadline.replace("T", " ")}</s>`;
@@ -104,21 +104,31 @@ document.addEventListener("DOMContentLoaded", function () {
     renderToDoLists();
   });
 
+  function showSidebar() {
+    sidebar.classList.add("show");
+  }
+
+  function hideSidebar() {
+    sidebar.classList.remove("show");
+  }
+
+  burgerBtn.addEventListener("click", function () {
+    sidebar.classList.toggle("show");
+  });
+
+  closeSidebar.addEventListener("click", function () {
+    hideSidebar();
+  });
+
   window.showToDoList = function (user) {
     currentUser = user;
     profileName.textContent = `Nama: ${staffData[user].name}`;
     profileRole.textContent = `Jabatan: ${staffData[user].role}`;
     renderToDoLists();
+    hideSidebar(); // Hide sidebar after selecting a staff
   };
 
-  window.markAsDone = function (index) {
-    const task = staffData[currentUser].todos.splice(index, 1)[0];
-    staffData[currentUser].done.push(task);
-    renderToDoLists();
-  };
-
-  // Set current date
   currentDateElement.textContent = `Tanggal: ${formatDate(new Date())}`;
 
-  renderToDoLists();
+  renderToDoLists(); // Initial rendering
 });

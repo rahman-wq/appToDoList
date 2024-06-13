@@ -1,35 +1,9 @@
-/* styles.css */
-
+/* Global Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-}
-
-.header {
-  background-color: #4caf50;
-  color: white;
-  padding: 1em;
-  text-align: center;
-}
-
-.main {
-  padding: 20px;
-}
-
-.manager-select {
-  margin-bottom: 20px;
-}
-
-.manager-select label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.manager-select ul {
-  list-style: none;
-  padding: 0;
+  box-sizing: border-box;
 }
 
 #app {
@@ -37,133 +11,270 @@ body {
   min-height: 100vh;
 }
 
-#sidebar {
-  width: 250px;
-  background: #333;
-  color: #fff;
-  flex-shrink: 0;
-}
-
-.sidebar-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.sidebar-header {
-  padding: 1em;
-  background: #444;
-}
-
-.sidebar-menu {
-  flex-grow: 1;
-}
-
-.sidebar-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar-menu ul li {
-  padding: 10px 20px;
-}
-
-.sidebar-menu ul li a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.sidebar-menu ul li a:hover {
-  background: #555;
-}
-
 #main {
-  flex-grow: 1;
-  background: #f4f4f4;
+  flex: 1;
   padding: 20px;
 }
 
-header {
-  background: #444;
+.burger-btn {
+  display: none;
+  cursor: pointer;
+}
+
+.burger-btn i {
+  font-size: 24px;
+}
+
+.d-xl-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+/* Sidebar Styles */
+#sidebar {
+  width: 250px;
+  background-color: #333;
   color: #fff;
-  padding: 1em;
-  text-align: center;
+  transition: transform 0.3s ease;
 }
 
-.profile {
-  margin-bottom: 20px;
+.sidebar-wrapper {
+  padding: 10px 20px;
+  transform: translateX(-250px);
 }
 
-.profile p {
-  margin: 5px 0;
+.sidebar-wrapper.active {
+  transform: translateX(0);
 }
 
-.time {
-  margin-bottom: 20px;
+.sidebar-header {
+  border-bottom: 1px solid #444;
+  padding: 10px 15px;
+}
+
+.sidebar-menu {
+  padding: 15px 0;
+}
+
+.menu .sidebar-item {
+  list-style: none;
+}
+
+.menu .sidebar-item a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 10px 15px;
+}
+
+.submenu {
+  padding-left: 20px;
+}
+
+/* Main Content Styles */
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
 }
 
 .task-input {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
   margin-bottom: 20px;
 }
 
-.task-input textarea {
-  flex-grow: 1;
-  padding: 10px;
-}
-
-.task-input select {
-  padding: 10px;
-}
-
+.task-input textarea,
+.task-input select,
+.task-input input,
 .task-input button {
-  padding: 10px 20px;
-  background: #4caf50;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-.task-input button:hover {
-  background: #45a049;
+  margin-bottom: 10px;
 }
 
 .task-lists {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
 }
 
-.task-lists .todo-list,
-.task-lists .done-list {
-  flex-grow: 1;
-  background: #fff;
-  padding: 20px;
-  border-radius: 5px;
+.todo-list,
+.done-list {
+  margin-bottom: 20px;
 }
 
-.task-lists ul {
-  list-style: none;
-  padding: 0;
+/* Priority Level Colors */
+.priority-low {
+  color: green;
 }
 
-.task-lists ul li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+.priority-medium {
+  color: orange;
 }
 
+.priority-high {
+  color: red;
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .task-lists {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .todo-list,
+  .done-list {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .done-list {
+    margin-right: 0;
+  }
+
+  .burger-btn {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  #app {
+    flex-direction: row;
+  }
+
+  .task-input {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .task-input textarea {
+    flex: 2;
+  }
+
+  .task-input select,
+  .task-input input,
+  .task-input button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    transform: translateX(-100%);
+    z-index: 1000;
+    background: #333;
+    overflow-y: auto;
+  }
+
+  #sidebar.show {
+    transform: translateX(0);
+  }
+
+  .burger-btn {
+    display: block;
+    cursor: pointer;
+  }
+
+  #main {
+    margin-left: 0;
+  }
+
+  .d-xl-none {
+    display: block;
+  }
+
+  .sidebar-hide {
+    display: block;
+  }
+}
+
+/* Footer Styles */
 footer {
-  padding: 10px;
-  background: #444;
-  color: #fff;
-  text-align: center;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+  display: flex;
+  justify-content: center;
 }
 
-.sidebar-title {
+/* Page Content */
+.page-content {
+  padding: 20px;
+}
+
+/* Extra Styles for Responsive Design */
+@media (max-width: 1200px) {
+  .d-xl-none {
+    display: block;
+  }
+}
+
+/* Additional Task Input Styles */
+.task-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-input textarea {
+  flex: 2;
+  resize: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.task-input select,
+.task-input input[type="date"],
+.task-input input[type="time"],
+.task-input button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.task-input button {
+  flex: none;
   padding: 10px 20px;
-  background: #555;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.task-input button:hover {
+  background-color: #0056b3;
+}
+
+/* Media Query to Hide Burger Button for Larger Screens */
+@media (min-width: 769px) {
+  .burger-btn {
+    display: none;
+  }
 }

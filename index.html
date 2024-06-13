@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
+    />
     <title>App To-Do List</title>
   </head>
+
   <body>
     <div id="app">
       <div id="sidebar">
@@ -21,7 +26,11 @@
                 </div>
               </div>
               <div class="toggler">
-                <a href="#" class="sidebar-hide d-xl-none d-block fs-4">
+                <a
+                  href="#"
+                  class="sidebar-hide d-xl-none d-block fs-4"
+                  id="close-sidebar"
+                >
                   <i class="bi bi-x bi-middle"></i>
                 </a>
               </div>
@@ -75,7 +84,7 @@
       </div>
       <div id="main">
         <header class="mb-3">
-          <a href="#" class="burger-btn d-block d-xl-none">
+          <a href="#" class="burger-btn d-block d-xl-none" id="burger-btn">
             <i class="bi bi-justify fs-3"></i>
           </a>
         </header>
@@ -122,7 +131,7 @@
                       </div>
                     </main>
                     <footer>
-                      <button id="delete-all">Delete All</button>
+                      <button id="delete-all">Delete Done List</button>
                     </footer>
                   </div>
                   <script src="script.js"></script>
