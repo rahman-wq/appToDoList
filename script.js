@@ -104,12 +104,28 @@ document.addEventListener("DOMContentLoaded", function () {
     renderToDoLists();
   });
 
+  function showSidebar() {
+    sidebar.classList.add("show");
+  }
+
+  function hideSidebar() {
+    sidebar.classList.remove("show");
+  }
+
+  burgerBtn.addEventListener("click", function () {
+    sidebar.classList.toggle("show");
+  });
+
+  closeSidebar.addEventListener("click", function () {
+    hideSidebar();
+  });
+
   window.showToDoList = function (user) {
     currentUser = user;
     profileName.textContent = `Nama: ${staffData[user].name}`;
     profileRole.textContent = `Jabatan: ${staffData[user].role}`;
     renderToDoLists();
-    hideSidebar();
+    hideSidebar(); // Hide sidebar after selecting a staff
   };
 
   window.markAsDone = function (index) {
@@ -121,33 +137,5 @@ document.addEventListener("DOMContentLoaded", function () {
   // Set current date
   currentDateElement.textContent = `Tanggal: ${formatDate(new Date())}`;
 
-  renderToDoLists();
-
-  // Burger button toggle
-  burgerBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("show");
-  });
-
-  closeSidebar.addEventListener("click", function () {
-    sidebar.classList.remove("show");
-  });
-});
-// Function to show sidebar
-function showSidebar() {
-  sidebar.classList.add("show");
-}
-
-// Function to hide sidebar
-function hideSidebar() {
-  sidebar.classList.remove("show");
-}
-
-// Event listener for burger button toggle
-burgerBtn.addEventListener("click", function () {
-  sidebar.classList.toggle("show");
-});
-
-// Event listener for close sidebar button
-closeSidebar.addEventListener("click", function () {
-  hideSidebar();
+  renderToDoLists(); // Initial rendering
 });
